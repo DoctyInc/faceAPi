@@ -5,14 +5,18 @@ import { Emotion, EmotionDocument } from '../schemas/emotion.schema';
 
 @Injectable()
 export class EmotionService {
-  constructor(@InjectModel(Emotion.name) private emotionModel: Model<EmotionDocument>) {}
+  constructor(
+    @InjectModel(Emotion.name) private readonly emotionModel: Model<EmotionDocument>,
+  ) {}
 
-  async createEmotion(referenceId: string, imageUrl: string, detectedEmotion: string): Promise<Emotion> {
-    const emotion = new this.emotionModel({ referenceId, imageUrl, detectedEmotion });
-    return emotion.save();
-  }
-
+  // ✅ Fetch emotions by referenceId
   async getEmotionsByReferenceId(referenceId: string): Promise<Emotion[]> {
     return this.emotionModel.find({ referenceId }).exec();
+  }
+
+  // ✅ Save an emotion entry
+  async saveEmotion(emotionData: Partial<Emotion>): Promise<Emotion> {
+    const newEmotion = new this.emotionModel(emotionData);
+    return newEmotion.save();
   }
 }

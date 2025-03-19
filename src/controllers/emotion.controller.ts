@@ -1,13 +1,14 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { EmotionService } from '../services/emotion.service';
+import { Emotion } from '../schemas/emotion.schema';
 
 @Controller('emotions')
 export class EmotionController {
   constructor(private readonly emotionService: EmotionService) {}
 
   @Post()
-  async createEmotion(@Body() body: { referenceId: string; imageUrl: string; detectedEmotion: string }) {
-    return this.emotionService.createEmotion(body.referenceId, body.imageUrl, body.detectedEmotion);
+  async createEmotion(@Body() emotionData: Partial<Emotion>) {
+    return this.emotionService.saveEmotion(emotionData);
   }
 
   @Get(':referenceId')

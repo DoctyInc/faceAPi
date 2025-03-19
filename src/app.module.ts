@@ -9,16 +9,13 @@ import { Emotion, EmotionSchema } from './schemas/emotion.schema';
 
 @Module({
   imports: [
-    // Load environment variables globally
-    ConfigModule.forRoot({ isGlobal: true }),
-
-    // Connect to MongoDB (Ensure .env has MONGO_URI)
-    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/test'),
-
-    // Register Emotion Schema
+    ConfigModule.forRoot({
+      isGlobal: true, // Ensures .env variables are accessible globally
+    }),
     MongooseModule.forFeature([{ name: Emotion.name, schema: EmotionSchema }]),
+    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017/test'),
   ],
-  controllers: [AppController, EmotionController],
+  controllers: [AppController, EmotionController], // ✅ Add EmotionController here
   providers: [AppService, EmotionService],
 })
 export class AppModule {}

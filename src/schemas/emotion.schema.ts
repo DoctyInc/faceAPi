@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+export type EmotionDocument = Emotion & Document; // ✅ Define EmotionDocument properly
 
-export type EmotionDocument = Emotion & Document;
 
 @Schema({ timestamps: true })
-export class Emotion {
+export class Emotion extends Document {
   @Prop({ required: true })
   referenceId: string;
 
@@ -12,7 +12,16 @@ export class Emotion {
   imageUrl: string;
 
   @Prop({ required: true })
-  detectedEmotion: string;
+  joyLikelihood: string;
+
+  @Prop({ required: true })
+  angerLikelihood: string;
+
+  @Prop({ required: true })
+  sorrowLikelihood: string;
+
+  @Prop({ required: false }) // Make it optional
+  detectedEmotion?: string;
 }
 
 export const EmotionSchema = SchemaFactory.createForClass(Emotion);
