@@ -10,9 +10,11 @@ export class EmotionService {
   private visionClient: ImageAnnotatorClient;
 
   constructor(@InjectModel(Emotion.name) private readonly emotionModel: Model<EmotionDocument>) {
-    // ✅ Load Google Vision API credentials
+    // ✅ Load Google Vision API credentials from .env OR JSON file
+    const googleCredPath = process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(process.cwd(), 'config', 'docty-vision-api-key-json.json');
+
     this.visionClient = new ImageAnnotatorClient({
-      keyFilename: path.join(__dirname, '../../docty-vision-api-key-json.json'),
+      keyFilename: googleCredPath,
     });
   }
 
