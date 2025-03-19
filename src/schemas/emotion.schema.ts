@@ -11,13 +11,13 @@ export class Emotion extends Document {
   @Prop({ required: true })
   imageUrl: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false  })
   joyLikelihood: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false  })
   angerLikelihood: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false  })
   sorrowLikelihood: string;
 
   @Prop({ required: false }) // Make it optional
