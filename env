@@ -1,1 +1,2 @@
 MONGO_URI=mongodb+srv://docty:DEGtRMYwtyGyMfp7@cluster0.99qor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+GOOGLE_APPLICATION_CREDENTIALS=./docty-vision-api-key-json.json
